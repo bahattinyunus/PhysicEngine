@@ -2,13 +2,15 @@ from .vector import Vector2D
 
 class Body:
     """Fiziksel bir nesneyi (rijit gövde) temsil eden sınıf."""
-    def __init__(self, mass=1.0, position=None, velocity=None):
+    def __init__(self, mass=1.0, position=None, velocity=None, shape=None):
         self.mass = float(mass)
         self.inv_mass = 1.0 / mass if mass > 0 else 0.0
         self.position = position if position else Vector2D()
         self.velocity = velocity if velocity else Vector2D()
         self.acceleration = Vector2D()
         self.force_accumulator = Vector2D()
+        self.shape = shape
+        self.restitution = 0.5 # Geri sekme katsayısı (0=yapışkan, 1=tam esnek)
 
     def apply_force(self, force):
         """Nesneye kuvvet uygular."""
